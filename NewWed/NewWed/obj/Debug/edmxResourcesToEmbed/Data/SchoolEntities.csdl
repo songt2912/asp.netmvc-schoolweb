@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SchoolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ClassRoom">
+    <Key>
+      <PropertyRef Name="ClassID" />
+    </Key>
+    <Property Name="ClassID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClassName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="TotalStudent" Type="Int32" />
+    <NavigationProperty Name="Students" Relationship="Self.FK_Student_ClassRoom" FromRole="ClassRoom" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="StudentID" />
+    </Key>
+    <Property Name="StudentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="StudentAge" Type="Int32" />
+    <Property Name="ClassID" Type="Int32" />
+    <NavigationProperty Name="ClassRoom" Relationship="Self.FK_Student_ClassRoom" FromRole="Student" ToRole="ClassRoom" />
+    <NavigationProperty Name="SubjectScores" Relationship="Self.FK_SubjectScore_Student" FromRole="Student" ToRole="SubjectScore" />
+  </EntityType>
+  <EntityType Name="Subject">
+    <Key>
+      <PropertyRef Name="SubjectID" />
+    </Key>
+    <Property Name="SubjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SubjectName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="SubjectScores" Relationship="Self.FK_SubjectScore_Subject" FromRole="Subject" ToRole="SubjectScore" />
+  </EntityType>
+  <EntityType Name="SubjectScore">
+    <Key>
+      <PropertyRef Name="ExamID" />
+    </Key>
+    <Property Name="ExamID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentID" Type="Int32" />
+    <Property Name="SubjectID" Type="Int32" />
+    <Property Name="FirstTPoint" Type="Double" />
+    <Property Name="MidTPoint" Type="Double" />
+    <Property Name="LastTPoint" Type="Double" />
+    <NavigationProperty Name="Student" Relationship="Self.FK_SubjectScore_Student" FromRole="SubjectScore" ToRole="Student" />
+    <NavigationProperty Name="Subject" Relationship="Self.FK_SubjectScore_Subject" FromRole="SubjectScore" ToRole="Subject" />
+  </EntityType>
+  <Association Name="FK_Student_ClassRoom">
+    <End Role="ClassRoom" Type="Self.ClassRoom" Multiplicity="0..1" />
+    <End Role="Student" Type="Self.Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClassRoom">
+        <PropertyRef Name="ClassID" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="ClassID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SubjectScore_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+    <End Role="SubjectScore" Type="Self.SubjectScore" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentID" />
+      </Principal>
+      <Dependent Role="SubjectScore">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SubjectScore_Subject">
+    <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
+    <End Role="SubjectScore" Type="Self.SubjectScore" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="SubjectID" />
+      </Principal>
+      <Dependent Role="SubjectScore">
+        <PropertyRef Name="SubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SchoolEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ClassRooms" EntityType="Self.ClassRoom" />
+    <EntitySet Name="Students" EntityType="Self.Student" />
+    <EntitySet Name="Subjects" EntityType="Self.Subject" />
+    <EntitySet Name="SubjectScores" EntityType="Self.SubjectScore" />
+    <AssociationSet Name="FK_Student_ClassRoom" Association="Self.FK_Student_ClassRoom">
+      <End Role="ClassRoom" EntitySet="ClassRooms" />
+      <End Role="Student" EntitySet="Students" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubjectScore_Student" Association="Self.FK_SubjectScore_Student">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="SubjectScore" EntitySet="SubjectScores" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubjectScore_Subject" Association="Self.FK_SubjectScore_Subject">
+      <End Role="Subject" EntitySet="Subjects" />
+      <End Role="SubjectScore" EntitySet="SubjectScores" />
+    </AssociationSet>
+    <FunctionImport Name="AllTableInOne" ReturnType="Collection(SchoolModel.AllTableInOne_Result)" />
+    <FunctionImport Name="ClassificationByScoreView" ReturnType="Collection(SchoolModel.ClassificationByScoreView_Result)">
+      <Parameter Name="score" Mode="In" Type="Double" />
+    </FunctionImport>
+    <FunctionImport Name="SearchTableByClass" ReturnType="Collection(SchoolModel.SearchTableByClass_Result)">
+      <Parameter Name="ClassName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SearchTableByStudent" ReturnType="Collection(SchoolModel.SearchTableByStudent_Result)">
+      <Parameter Name="studentname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SearchTableBySubject" ReturnType="Collection(SchoolModel.SearchTableBySubject_Result)">
+      <Parameter Name="subject" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ClassificationByScoreRole" ReturnType="Collection(SchoolModel.ClassificationByScoreRole_Result)" />
+    <FunctionImport Name="ClassificationByScoreTop10" ReturnType="Collection(SchoolModel.ClassificationByScoreTop10_Result)" />
+    <FunctionImport Name="ClassificationAll" ReturnType="Collection(SchoolModel.ClassificationAll_Result)" />
+    <FunctionImport Name="RegisterStudentsubject" ReturnType="Collection(SchoolModel.RegisterStudentsubject_Result)">
+      <Parameter Name="idstudent" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="RegisterStudentsubjects" ReturnType="Collection(SchoolModel.RegisterStudentsubjects_Result)" />
+  </EntityContainer>
+  <ComplexType Name="AllTableInOne_Result">
+    <Property Type="String" Name="StudentName" Nullable="true" MaxLength="30" />
+    <Property Type="Int32" Name="StudentAge" Nullable="true" />
+    <Property Type="String" Name="ClassName" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="30" />
+    <Property Type="Double" Name="AvgScore" Nullable="true" />
+    <Property Type="Double" Name="LastTPoint" Nullable="true" />
+    <Property Type="Double" Name="MidTPoint" Nullable="true" />
+    <Property Type="Double" Name="FirstTPoint" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="ClassificationByScoreView_Result">
+    <Property Type="String" Name="StudentName" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="ClassName" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="30" />
+    <Property Type="Double" Name="FirstTPoint" Nullable="true" />
+    <Property Type="Double" Name="MidTPoint" Nullable="true" />
+    <Property Type="Double" Name="LastTPoint" Nullable="true" />
+    <Property Type="Double" Name="AvgScore" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SearchTableByClass_Result">
+    <Property Type="String" Name="StudentName" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="ClassName" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="30" />
+    <Property Type="Double" Name="FirstTPoint" Nullable="true" />
+    <Property Type="Double" Name="MidTPoint" Nullable="true" />
+    <Property Type="Double" Name="LastTPoint" Nullable="true" />
+    <Property Type="Double" Name="AvgScore" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SearchTableByStudent_Result">
+    <Property Type="String" Name="StudentName" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="ClassName" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="30" />
+    <Property Type="Double" Name="FirstTPoint" Nullable="true" />
+    <Property Type="Double" Name="MidTPoint" Nullable="true" />
+    <Property Type="Double" Name="LastTPoint" Nullable="true" />
+    <Property Type="Double" Name="AvgScore" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SearchTableBySubject_Result">
+    <Property Type="String" Name="StudentName" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="ClassName" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="30" />
+    <Property Type="Double" Name="FirstTPoint" Nullable="true" />
+    <Property Type="Double" Name="MidTPoint" Nullable="true" />
+    <Property Type="Double" Name="LastTPoint" Nullable="true" />
+    <Property Type="Double" Name="AvgScore" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="ClassificationByScoreRole_Result">
+    <Property Type="String" Name="StudentName" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="ClassName" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="30" />
+    <Property Type="Double" Name="FirstTPoint" Nullable="true" />
+    <Property Type="Double" Name="MidTPoint" Nullable="true" />
+    <Property Type="Double" Name="LastTPoint" Nullable="true" />
+    <Property Type="Double" Name="AvgScore" Nullable="true" />
+    <Property Type="String" Name="Roles" Nullable="true" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="ClassificationByScoreTop10_Result">
+    <Property Type="String" Name="StudentName" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="ClassName" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="30" />
+    <Property Type="Double" Name="FirstTPoint" Nullable="true" />
+    <Property Type="Double" Name="MidTPoint" Nullable="true" />
+    <Property Type="Double" Name="LastTPoint" Nullable="true" />
+    <Property Type="Double" Name="AvgScore" Nullable="true" />
+    <Property Type="String" Name="Roles" Nullable="true" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="ClassificationAll_Result">
+    <Property Type="Int32" Name="StudentID" Nullable="false" />
+    <Property Type="String" Name="StudentName" Nullable="true" MaxLength="30" />
+    <Property Type="Int32" Name="ClassID" Nullable="false" />
+    <Property Type="String" Name="ClassName" Nullable="true" MaxLength="30" />
+    <Property Type="Int32" Name="SubjectID" Nullable="false" />
+    <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="30" />
+    <Property Type="Double" Name="FirstTPoint" Nullable="true" />
+    <Property Type="Double" Name="MidTPoint" Nullable="true" />
+    <Property Type="Double" Name="LastTPoint" Nullable="true" />
+    <Property Type="Int32" Name="ExamID" Nullable="false" />
+    <Property Type="Double" Name="AvgScore" Nullable="true" />
+    <Property Type="String" Name="Roles" Nullable="true" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="RegisterStudentsubject_Result">
+    <Property Type="String" Name="StudentName" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="30" />
+    <Property Type="Double" Name="FirstTPoint" Nullable="true" />
+    <Property Type="Double" Name="MidTPoint" Nullable="true" />
+    <Property Type="Double" Name="LastTPoint" Nullable="true" />
+    <Property Type="Int32" Name="StudentID" Nullable="false" />
+    <Property Type="Int32" Name="StudentAge" Nullable="true" />
+    <Property Type="Int32" Name="SubjectID" Nullable="false" />
+    <Property Type="Int32" Name="ExamID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="RegisterStudentsubjects_Result">
+    <Property Type="String" Name="StudentName" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="30" />
+    <Property Type="Double" Name="FirstTPoint" Nullable="true" />
+    <Property Type="Double" Name="MidTPoint" Nullable="true" />
+    <Property Type="Double" Name="LastTPoint" Nullable="true" />
+    <Property Type="Int32" Name="StudentID" Nullable="false" />
+    <Property Type="Int32" Name="StudentAge" Nullable="true" />
+    <Property Type="Int32" Name="SubjectID" Nullable="false" />
+    <Property Type="Int32" Name="ExamID" Nullable="false" />
+  </ComplexType>
+</Schema>

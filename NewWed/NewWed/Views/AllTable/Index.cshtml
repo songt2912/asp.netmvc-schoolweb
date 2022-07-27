@@ -1,0 +1,123 @@
+﻿@model IEnumerable<NewWed.Models.AlltableDto>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm("Index", "AllTable", FormMethod.Get))
+{
+    @*<b> Search Option: </b>
+        @Html.RadioButton("option", "Name")
+        <text>Name</text>*@
+    @*@Html.RadioButton("option", "Class")
+        <text> Class </text>
+        @Html.RadioButton("option", "Subject")
+        <text>Subject</text>*@
+    @*@Html.DropDownList("ClassName",new SelectList( ViewBag.data,"ClassName"))*@
+    <b>Lớp:</b>
+    @Html.DropDownList("className", "Classname")
+    <b>Môn:</b>
+    @Html.DropDownList("subjectName", "SubjectName")
+
+    <b>Học lực:</b>
+    @*@Html.RadioButton("option", "Giỏi")
+        <text>Giỏi</text>
+        @Html.RadioButton("option", "Khá")
+        <text> Khá </text>
+        @Html.RadioButton("option", "Trung Bình")
+        <text> Trung Bình </text>
+        @Html.RadioButton("option", "Yếu")
+        <text>Yếu</text>*@
+    @*<div>
+        @Html.DropDownList("Roles","all")
+        </div>*@
+    @*@Html.DropDownListFor(m => m.AsEnumerable<all>, new SelectList(ViewBag.PartialTypes, "ExamID", "Roles"), new { id = "Type" })*@
+    @Html.DropDownList("roles4student", new SelectList(new[] { "", "Giỏi", "Khá", "Trung bình", "Yếu" }))
+
+    <br />
+
+    <br />
+    <b>Tìm kiếm</b>
+    @Html.TextBox("studentName")
+
+    <input type="submit" value="Seacrh" />
+
+
+}
+<bt />
+<a href="@Url.Action("PrintPDF", "AllTable")" class="btn btn-primary">PDF</a>
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.StudentName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.ClassName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.SubjectName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstTPoint)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MidTPoint)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastTPoint)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.AvgScore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Roles)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.SubjectName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstTPoint)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MidTPoint)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastTPoint)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.AvgScore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Roles)
+            </td>
+            <td></td>
+        </tr>
+    }
+
+</table>

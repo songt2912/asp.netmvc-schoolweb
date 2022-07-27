@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="40eaec9ee29346e68779fabdd9cfc1d7" Name="Diagram1">
+        <EntityTypeShape EntityType="SchoolWedModel.ClassRoom" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolWedModel.ExamScore" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolWedModel.Student" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolWedModel.Subject" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolWedModel.sysdiagram" Width="1.5" PointX="9.125" PointY="3.5" IsExpanded="true" />
+        <AssociationConnector Association="SchoolWedModel.FK_Student_ClassRoom" ManuallyRouted="false" />
+        <AssociationConnector Association="SchoolWedModel.FK_ExamScore_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="SchoolWedModel.FK_ExamScore_Subject" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SchoolWedModelStoreContainer" CdmEntityContainer="SchoolWedEntities">
+    <EntitySetMapping Name="ClassRooms">
+      <EntityTypeMapping TypeName="SchoolWedModel.ClassRoom">
+        <MappingFragment StoreEntitySet="ClassRoom">
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+          <ScalarProperty Name="TotalStudent" ColumnName="TotalStudent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExamScores">
+      <EntityTypeMapping TypeName="SchoolWedModel.ExamScore">
+        <MappingFragment StoreEntitySet="ExamScore">
+          <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="FirstTPoint" ColumnName="FirstTPoint" />
+          <ScalarProperty Name="MidTPoint" ColumnName="MidTPoint" />
+          <ScalarProperty Name="LastTPoint" ColumnName="LastTPoint" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="SchoolWedModel.Student">
+        <MappingFragment StoreEntitySet="Student">
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+          <ScalarProperty Name="StudentAge" ColumnName="StudentAge" />
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Subjects">
+      <EntityTypeMapping TypeName="SchoolWedModel.Subject">
+        <MappingFragment StoreEntitySet="Subject">
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="SchoolWedModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AllTableinOne" FunctionName="SchoolWedModel.Store.AllTableinOne">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SchoolWedModel.AllTableinOne_Result">
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+          <ScalarProperty Name="StudentAge" ColumnName="StudentAge" />
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+          <ScalarProperty Name="FirstTPoint" ColumnName="FirstTPoint" />
+          <ScalarProperty Name="MidTPoint" ColumnName="MidTPoint" />
+          <ScalarProperty Name="LastTPoint" ColumnName="LastTPoint" />
+          <ScalarProperty Name="AvgScore" ColumnName="AvgScore" />
+          <ScalarProperty Name="Roles" ColumnName="Roles" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Seachingbarforschool" FunctionName="SchoolWedModel.Store.Seachingbarforschool">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SchoolWedModel.Seachingbarforschool_Result">
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+          <ScalarProperty Name="StudentAge" ColumnName="StudentAge" />
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+          <ScalarProperty Name="FirstTPoint" ColumnName="FirstTPoint" />
+          <ScalarProperty Name="MidTPoint" ColumnName="MidTPoint" />
+          <ScalarProperty Name="LastTPoint" ColumnName="LastTPoint" />
+          <ScalarProperty Name="AvgScore" ColumnName="AvgScore" />
+          <ScalarProperty Name="Roles" ColumnName="Roles" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Top10Student" FunctionName="SchoolWedModel.Store.Top10Student">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SchoolWedModel.Top10Student_Result">
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+          <ScalarProperty Name="StudentAge" ColumnName="StudentAge" />
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+          <ScalarProperty Name="FirstTPoint" ColumnName="FirstTPoint" />
+          <ScalarProperty Name="MidTPoint" ColumnName="MidTPoint" />
+          <ScalarProperty Name="LastTPoint" ColumnName="LastTPoint" />
+          <ScalarProperty Name="AvgScore" ColumnName="AvgScore" />
+          <ScalarProperty Name="Roles" ColumnName="Roles" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>
